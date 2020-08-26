@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes</title>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <style>
+      html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}button,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button}button::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring{outline:1px dotted ButtonText}textarea{overflow:auto}template{display:none}button{background-color:transparent;background-image:none}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}ul{list-style:none;margin:0;padding:0}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";line-height:1.5}*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}textarea{resize:vertical}textarea:-ms-input-placeholder{color:#a0aec0}textarea::-ms-input-placeholder{color:#a0aec0}textarea::placeholder{color:#a0aec0}button{cursor:pointer}button,textarea{padding:0;line-height:inherit;color:inherit}svg{display:block;vertical-align:middle}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.bg-gray-600{--bg-opacity:1;background-color:#718096;background-color:rgba(113,128,150,var(--bg-opacity))}.cursor-pointer{cursor:pointer}.flex{display:flex}.items-center{align-items:center}.justify-center{justify-content:center}.font-sans{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}.h-5{height:1.25rem}.h-8{height:2rem}.h-full{height:100%}.h-screen{height:100vh}.text-xs{font-size:.75rem}.list-none{list-style-type:none}.mx-1{margin-left:.25rem;margin-right:.25rem}.my-2{margin-top:.5rem;margin-bottom:.5rem}.mb-1{margin-bottom:.25rem}.ml-auto{margin-left:auto}.outline-none{outline:0}.focus\:outline-none:focus{outline:0}.overflow-x-hidden{overflow-x:hidden}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.fill-current{fill:currentColor}.text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.text-red-400{--text-opacity:1;color:#fc8181;color:rgba(252,129,129,var(--text-opacity))}.hover\:text-red-400:hover{--text-opacity:1;color:#fc8181;color:rgba(252,129,129,var(--text-opacity))}.hover\:text-red-500:hover{--text-opacity:1;color:#f56565;color:rgba(245,101,101,var(--text-opacity))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.break-words{overflow-wrap:break-word}.w-5{width:1.25rem}.w-8{width:2rem}.w-2\/12{width:16.666667%}.w-3\/12{width:25%}.w-9\/12{width:75%}.w-10\/12{width:83.333333%}.w-full{width:100%}.transition{transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}.duration-200{transition-duration:.2s}@keyframes spin{to{transform:rotate(360deg)}}@keyframes ping{100%,75%{transform:scale(2);opacity:0}}@keyframes pulse{50%{opacity:.5}}@keyframes bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}}.animate-bounce{animation:bounce 1s infinite}@media (min-width:1024px){.lg\:w-2\/12{width:16.666667%}.lg\:w-10\/12{width:83.333333%}}
+      li.active {
+        background-color: #a0aec0;
+      }
+    </style>
+</head>
+<body class="font-sans bg-gray-100 antialiased">
+  <div x-data="notes()" class="notes-app">
+    <div class="flex h-screen">
+      <div class="w-3/12 lg:w-2/12 bg-gray-600 text-white">
+        <ul class="notes-list list-none">
+          <template x-for="note in notes" :key="note.id">
+            <li
+              class="cursor-pointer mb-1 px-2 py-1 overflow-x-hidden"
+              :class="{ active: note.id === editedNote.id }"
+            >
+              <div class="flex items-center">
+                <div
+                  class="w-10/12 break-words"
+                  x-text="formatTitle(note)"
+                  @click="editNote(note)">
+                </div>
+                <div
+                  class="w-2/12 text-xs"
+                  @click="deleteNote(note)"
+                >
+                  <svg
+                    viewBox="0 0 20 20"
+                    class="ml-auto w-5 h-5 fill-current hover:text-red-500 transition duration-200 ease-in-out">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+              </div>
+            </li>
+          </template>
+          <li class="cursor-pointer my-2 flex justify-center">
+            <button
+              class="mx-1 outline-none focus:outline-none"
+              @click="addNote()"
+            >
+              <svg
+                viewBox="0 0 20 20"
+                class="w-8 h-8 fill-current hover:text-red-400 transition duration-200 ease-in-out">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            <button
+              class="mx-1 outline-none focus:outline-none"
+              x-show="!saved"
+              @click="save()"
+            >
+              <svg
+                viewBox="0 0 20 20"
+                class="w-8 h-8 fill-current text-red-400 animate-bounce">
+                <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z"/>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="w-9/12 lg:w-10/12 bg-gray-100">
+        <textarea
+          class="w-full h-full bg-gray-100 py-2 px-5 outline-none"
+          x-show="editedNote.id !== null"
+          @keyup="saved = false"
+          x-model="editedNote.body">
+        </textarea>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.noteStore = {
+      notes: JSON.parse(localStorage.getItem('note-store') || '[]'),
+      saved: true,
+
+      save() {
+          localStorage.setItem('note-store', JSON.stringify(this.notes));
+          this.saved = true;
+      },
+    };
+
+    window.notes = function () {
+      return {
+        ...noteStore,
+        editedNote: {
+          id: null,
+          body: ''
+        },
+
+        formatTitle(note) {
+          return note.body.substr(0, 15).trim().replace(/(\r\n|\n|\r)/gm, '') + '...';
+        },
+
+        editNote(note) {
+          this.editedNote = note;
+
+          this.save();
+        },
+
+        addNote() {
+          this.notes.push({
+            id: Date.now(),
+            body: 'new Note'
+          });
+
+          this.save();
+        },
+
+        deleteNote(note) {
+          let position = this.notes.indexOf(note);
+          this.notes.splice(position, 1);
+
+          if (note.id === this.editedNote.id) {
+            this.editedNote.id = null;
+            this.editedNote.body = '';
+          }
+
+          this.save();
+        }
+      }
+    };
+  </script>
+</body>
+</html>
