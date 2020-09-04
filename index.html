@@ -3,20 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAAg0lEQVQ4jeXUvQmAMBCG4VfBFQRXEQdQHFj3sLA32UIhVoJ/OXOQQvGDq3J5ckkR+GJawALuVDPQA7kWNDfYvgYtKmFbjUARE1ShoaADuvPmxAOGZgGymKDPuIAOKIWeatd3SCpskta8U0W/sjRFtPzwDa0CMyFNDc8/jgMmoFYc/pKsIwFKPlT+WhUAAAAASUVORK5CYII=">
+    <link rel="icon" href="data:image/png;base64,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">
     <title>Notes</title>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <style>
-      html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}button,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button}button::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring{outline:1px dotted ButtonText}textarea{overflow:auto}template{display:none}button{background-color:transparent;background-image:none}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}ul{list-style:none;margin:0;padding:0}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";line-height:1.5}*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}textarea{resize:vertical}textarea:-ms-input-placeholder{color:#a0aec0}textarea::-ms-input-placeholder{color:#a0aec0}textarea::placeholder{color:#a0aec0}button{cursor:pointer}button,textarea{padding:0;line-height:inherit;color:inherit}svg{display:block;vertical-align:middle}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.bg-gray-600{--bg-opacity:1;background-color:#718096;background-color:rgba(113,128,150,var(--bg-opacity))}.cursor-pointer{cursor:pointer}.flex{display:flex}.items-center{align-items:center}.justify-center{justify-content:center}.font-sans{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}.h-5{height:1.25rem}.h-8{height:2rem}.h-full{height:100%}.h-screen{height:100vh}.text-xs{font-size:.75rem}.list-none{list-style-type:none}.mx-1{margin-left:.25rem;margin-right:.25rem}.my-2{margin-top:.5rem;margin-bottom:.5rem}.mb-1{margin-bottom:.25rem}.ml-auto{margin-left:auto}.outline-none{outline:0}.focus\:outline-none:focus{outline:0}.overflow-x-hidden{overflow-x:hidden}.overflow-y-scroll{overflow-y:scroll}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.fill-current{fill:currentColor}.text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.text-red-400{--text-opacity:1;color:#fc8181;color:rgba(252,129,129,var(--text-opacity))}.hover\:text-red-400:hover{--text-opacity:1;color:#fc8181;color:rgba(252,129,129,var(--text-opacity))}.hover\:text-red-500:hover{--text-opacity:1;color:#f56565;color:rgba(245,101,101,var(--text-opacity))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.break-words{overflow-wrap:break-word}.w-2{width:.5rem}.w-3{width:.75rem}.w-5{width:1.25rem}.w-8{width:2rem}.w-10{width:2.5rem}.w-2\/12{width:16.666667%}.w-3\/12{width:25%}.w-9\/12{width:75%}.w-10\/12{width:83.333333%}.w-full{width:100%}.transform{--transform-translate-x:0;--transform-translate-y:0;--transform-rotate:0;--transform-skew-x:0;--transform-skew-y:0;--transform-scale-x:1;--transform-scale-y:1;transform:translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y))}.transition{transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}.duration-200{transition-duration:.2s}@keyframes spin{to{transform:rotate(360deg)}}@keyframes ping{100%,75%{transform:scale(2);opacity:0}}@keyframes pulse{50%{opacity:.5}}@keyframes bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}}.animate-bounce{animation:bounce 1s infinite}@media (min-width:1024px){.lg\:w-2\/12{width:16.666667%}.lg\:w-10\/12{width:83.333333%}}
+      html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}button,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button}button::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring{outline:1px dotted ButtonText}textarea{overflow:auto}template{display:none}button{background-color:transparent;background-image:none}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}ul{list-style:none;margin:0;padding:0}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";line-height:1.5}*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}textarea{resize:vertical}textarea:-ms-input-placeholder{color:#a0aec0}textarea::-ms-input-placeholder{color:#a0aec0}textarea::placeholder{color:#a0aec0}button{cursor:pointer}button,textarea{padding:0;line-height:inherit;color:inherit}svg{display:block;vertical-align:middle}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.cursor-pointer{cursor:pointer}.flex{display:flex}.items-center{align-items:center}.justify-center{justify-content:center}.font-sans{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}.h-5{height:1.25rem}.h-8{height:2rem}.h-full{height:100%}.h-screen{height:100vh}.text-xs{font-size:.75rem}.list-none{list-style-type:none}.mx-1{margin-left:.25rem;margin-right:.25rem}.my-2{margin-top:.5rem;margin-bottom:.5rem}.mb-1{margin-bottom:.25rem}.ml-auto{margin-left:auto}.outline-none{outline:0}.focus\:outline-none:focus{outline:0}.overflow-auto{overflow:auto}.overflow-x-hidden{overflow-x:hidden}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.fill-current{fill:currentColor}.text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.text-red-500{--text-opacity:1;color:#f56565;color:rgba(245,101,101,var(--text-opacity))}.hover\:text-red-500:hover{--text-opacity:1;color:#f56565;color:rgba(245,101,101,var(--text-opacity))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.break-words{overflow-wrap:break-word}.w-5{width:1.25rem}.w-8{width:2rem}.w-2\/12{width:16.666667%}.w-3\/12{width:25%}.w-9\/12{width:75%}.w-10\/12{width:83.333333%}.w-full{width:100%}.transition{transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}.duration-200{transition-duration:.2s}@keyframes spin{to{transform:rotate(360deg)}}@keyframes ping{100%,75%{transform:scale(2);opacity:0}}@keyframes pulse{50%{opacity:.5}}@keyframes bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}}.animate-bounce{animation:bounce 1s infinite}@media (min-width:1024px){.lg\:w-2\/12{width:16.666667%}.lg\:w-10\/12{width:83.333333%}}
       li.active {
-        background-color: #a0aec0;
+        background-color: #38a89d;
+      }
+      .bg-indigo-darker {
+        background-color: #2f365f;
+      }
+      .hover\:text-teal-dark:hover {
+        color: #38a89d;
       }
     </style>
 </head>
 <body class="font-sans bg-gray-100 antialiased">
   <div x-data="notes()" class="notes-app">
     <div class="flex h-screen">
-      <div class="w-3/12 lg:w-2/12 bg-gray-600 text-white overflow-y-scroll">
+      <div class="w-3/12 lg:w-2/12 bg-indigo-darker text-white overflow-auto">
         <ul class="notes-list list-none">
           <template x-for="note in notes" :key="note.id">
             <li
@@ -45,22 +51,24 @@
           <li class="cursor-pointer my-2 flex justify-center">
             <button
               class="mx-1 outline-none focus:outline-none"
+              title="new Note"
               @click="addNote()"
             >
               <svg
                 viewBox="0 0 20 20"
-                class="w-8 h-8 fill-current hover:text-red-400 transition duration-200 ease-in-out">
+                class="w-8 h-8 fill-current hover:text-teal-dark transition duration-200 ease-in-out">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>
               </svg>
             </button>
             <button
               class="mx-1 outline-none focus:outline-none"
+              title="Save"
               x-show="!saved"
               @click="save()"
             >
               <svg
                 viewBox="0 0 20 20"
-                class="w-8 h-8 fill-current text-red-400 animate-bounce">
+                class="w-8 h-8 fill-current text-red-500 animate-bounce">
                 <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z"/>
               </svg>
             </button>
@@ -72,8 +80,8 @@
           class="w-full h-full bg-gray-100 py-2 px-5 outline-none"
           x-show="editedNote.id !== null"
           @keyup="saved = false"
-          x-model="editedNote.body">
-        </textarea>
+          x-model="editedNote.body"
+        ></textarea>
       </div>
     </div>
   </div>
@@ -98,7 +106,7 @@
         },
 
         formatTitle(note) {
-          return note.body.substr(0, 15).trim().replace(/(\r\n|\n|\r)/gm, '') + '...';
+          return note.body.split('\n')[0].substr(0, 15).trim().replace(/(\r\n|\n|\r)/gm, '') + '...';
         },
 
         editNote(note) {
