@@ -23,7 +23,7 @@
     </style>
 </head>
 <body class="font-sans bg-gray-100 antialiased">
-  <div x-data="notes()" x-cloak class="notes-app">
+  <div x-data="notes()" x-init="init()" x-cloak class="notes-app">
     <div class="flex h-screen">
       <div class="w-3/12 lg:w-2/12 bg-indigo-darker text-white overflow-auto">
         <ul class="notes-list list-none">
@@ -83,6 +83,7 @@
           class="w-full h-full bg-gray-100 py-2 px-5 outline-none"
           x-show="editedNote.id !== null"
           @keyup="saved = false"
+          @input.debounce.2000="save()"
           x-model="editedNote.body"
         ></textarea>
       </div>
@@ -106,6 +107,12 @@
         editedNote: {
           id: null,
           body: ''
+        },
+
+        init() {
+          if (this.notes.length) {
+            this.editNote(this.notes[0]);
+          }
         },
 
         formatTitle(note) {
