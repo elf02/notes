@@ -1,0 +1,16 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "author": "elf02",
+  "scripts": {
+    "dev": "postcss assets/style.css -o public/style.css",
+    "prod": "NODE_ENV=production postcss assets/style.css -o public/style.css"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.3",
+    "cssnano": "^5.0.8",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.2.8"
+  }
+}
