@@ -6,9 +6,6 @@ module.exports = {
     theme: {
       extend: {
         colors: {
-          indigo: {
-            darker: '#2f365f',
-          },
           teal: {
             dark: '#38a89d',
           },
