@@ -17,7 +17,7 @@
     </style>
 </head>
 <body class="font-sans">
-  <div x-data="notes()" x-init="init()" x-cloak class="flex flex-col md:flex-row bg-gray-100 w-full h-screen">
+  <div x-data="notes" x-cloak class="flex flex-col md:flex-row bg-gray-100 w-full h-screen">
     <div class="md:w-3/12 xl:w-2/12 bg-white shadow-lg p-3">
       <ul class="space-y-2 text-sm">
         <template x-for="note in latestNotes()" :key="note.id">
