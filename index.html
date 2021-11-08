@@ -7,7 +7,6 @@
     <title>Notes</title>
     <link rel="stylesheet" href="style.css">
 
-    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
@@ -17,34 +16,34 @@
     </style>
 </head>
 <body class="font-sans">
-  <div x-data="notes" x-cloak class="flex flex-col md:flex-row bg-gray-100 w-full h-screen">
+  <div x-data x-cloak class="flex flex-col md:flex-row bg-gray-100 w-full h-screen">
     <div class="md:w-3/12 xl:w-2/12 bg-white shadow-lg p-3">
       <ul class="space-y-2 text-sm">
-        <template x-for="note in latestNotes()" :key="note.id">
+        <template x-for="note in $store.notes.sortedByLastEditedNotes" :key="note.id">
           <li
-            class="p-2 hover:bg-gray-200 transition duration-200 ease-in-out rounded-md font-medium text-sm text-gray-700 overflow-x-hidden"
-            :class="{ 'bg-gray-200': note.id === editedNote.id }"
+            class="hover:bg-gray-200 transition duration-200 ease-in-out rounded-md font-medium text-sm text-gray-700 overflow-x-hidden"
+            :class="{ 'bg-gray-200': note.id === $store.notes.currentNoteId }"
           >
             <div class="flex items-center">
               <a
                 href="#"
-                class="block flex-grow break-words"
-                @click.prevent="editNote(note)"
+                class="block p-2 flex-grow break-words"
+                x-on:click.prevent="$store.notes.setCurrentNoteById(note.id)"
               >
                 <div
                   class="flex items-center space-x-1"
-                  :class="{ 'text-teal-dark': note.id === editedNote.id }"
+                  :class="{ 'text-teal-dark': note.id === $store.notes.currentNoteId }"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  <span x-text="formatTitle(note)"></span>
+                  <span x-text="$store.notes.formatTitle(note)"></span>
                 </div>
               </a>
               <a
                 href="#"
-                class="block hover:text-red-700 transition duration-200 ease-in-out"
-                @click.prevent="deleteNote(note)"
+                class="block p-2 hover:text-red-700 transition duration-200 ease-in-out"
+                x-on:click.prevent="$store.notes.deleteNote(note.id)"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -56,7 +55,7 @@
           <button
             class="outline-none focus:outline-none text-gray-700 hover:text-teal-dark transition duration-200 ease-in-out"
             title="new Note"
-            @click="addNote()"
+            x-on:click.prevent="$store.notes.createNote()"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
@@ -68,71 +67,79 @@
     <div class="md:w-9/12 xl:w-10/12 flex-grow p-4">
       <textarea
         class="w-full h-full bg-gray-100 outline-none"
-        x-show="editedNote.id !== null"
-        x-model="editedNote.body"
+        x-model="$store.notes.currentNote.body"
+        x-on:keyup.debounce.200="$store.notes.touchCurrentNote()"
       ></textarea>
     </div>
   </div>
 
   <script>
     document.addEventListener('alpine:init', () => {
-      Alpine.data('notes', function () {
-        return {
-          notes: this.$persist([]).as('notes'),
+      Alpine.store('notes', {
+        data: JSON.parse(localStorage.getItem('notesstorage')) || [],
 
-          editedNote: {
-            id: null,
-            body: ''
-          },
+        currentNoteId: null,
 
-          init() {
-            if (this.notes.length) {
-              this.editLatestNote()
-            }
-          },
+        get currentNote() {
+          return this.data.find(note => note.id === this.currentNoteId)
+        },
 
-          formatTitle(note) {
-            return note.body.split('\n')[0].substr(0, 15).trim().replace(/(\r\n|\n|\r)/gm, '') + '...'
-          },
+        get sortedByLastEditedNotes() {
+          return this.data.sort((a, b) => b.edited - a.edited)
+        },
 
-          latestNotes () {
-            let latestNotes = this.notes.sort((a, b) => b.id - a.id)
-            return latestNotes
-          },
+        setCurrentNoteById(id) {
+          this.currentNoteId = id
+        },
 
-          editLatestNote() {
-            this.editNote(this.latestNotes()[0])
-          },
+        setCurrentNoteByIndex(index) {
+          this.currentNoteId = this.sortedByLastEditedNotes[index].id
+        },
 
-          editNote(note) {
-            this.editedNote = note
-          },
+        touchCurrentNote() {
+          this.currentNote.edited = Date.now()
+          this.persistNotes()
+        },
 
-          addNote() {
-            this.notes.push({
-              id: Date.now(),
-              body: 'new Note'
-            })
+        createNote() {
+          let id = Date.now()
 
-            this.editLatestNote()
-          },
+          this.data = [{
+            id,
+            body: 'new Note',
+            edited: 0
+          }, ...this.data]
 
-          deleteNote(note) {
-            if (!confirm('Delete Note?')) return
+          this.setCurrentNoteById(id)
+          this.touchCurrentNote()
+        },
 
-            this.notes.splice(this.notes.indexOf(note), 1)
+        deleteNote(id) {
+          if (!confirm('Delete Note?')) return
 
-            if (note.id === this.editedNote.id) {
-              if (this.notes.length) {
-                this.editLatestNote()
-              }
-              else {
-                this.editedNote = {
-                  id: null,
-                  body: ''
-                }
-              }
-            }
+          if (this.data.length === 1) {
+            this.createNote()
+          }
+
+          this.data = this.data.filter(note => note.id !== id)
+          this.setCurrentNoteByIndex(0)
+          this.persistNotes()
+        },
+
+        persistNotes() {
+          localStorage.setItem('notesstorage', JSON.stringify(this.data))
+        },
+
+        formatTitle(note) {
+          return note.body.split('\n')[0].substr(0, 15).trim().replace(/(\r\n|\n|\r)/gm, '') + '...'
+        },
+
+        init() {
+          if (this.data.length) {
+            this.setCurrentNoteByIndex(0)
+          }
+          else {
+            this.createNote()
           }
         }
       })
